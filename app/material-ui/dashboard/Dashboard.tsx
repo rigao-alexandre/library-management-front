@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import MainGrid from "./components/MainGrid";
 import SideMenu from "./components/SideMenu";
 import AppTheme from "../shared-theme/AppTheme";
+import { Outlet } from "react-router";
 // import {
 //   chartsCustomizations,
 //   dataGridCustomizations,
@@ -54,7 +55,8 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
             }}
           >
             <Header />
-            <MainGrid />
+            <Outlet />
+            {/* <MainGrid /> */}
           </Stack>
         </Box>
       </Box>
