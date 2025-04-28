@@ -11,6 +11,7 @@ import { z } from "zod";
 import {
   Form as RRForm,
   redirect,
+  useFormAction,
   useLoaderData,
   useNavigate,
   useSubmit,
@@ -22,6 +23,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Main } from "@/components/layout/main";
 import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import useDialogState from "@/hooks/use-dialog-state";
+import { useRef } from "react";
 
 const FormSchema = z.object({
   title: z.string().min(1, "Title is required."),
@@ -98,6 +102,11 @@ export default function BookDetail({ params }: Route.ActionArgs) {
     form.reset();
     // navigate("/books");
   };
+
+  // console.log(useFormAction("delete"));
+
+  const deleteFormRef = useRef<HTMLFormElement>(null);
+  const [open, setOpen] = useDialogState<"delete">(null);
 
   return (
     <Main>
@@ -180,11 +189,13 @@ export default function BookDetail({ params }: Route.ActionArgs) {
             </Button>
 
             <Button
-              form="books-delete-form"
-              type="submit"
-              variant="destructive"
-              value="delete"
-              name="_action"
+              // form="books-delete-form"
+              // type="submit"
+              // variant="destructive"
+              // value="delete"
+              // name="_action"
+              type="button"
+              onClick={() => setOpen("delete")}
             >
               Delete
             </Button>
@@ -195,14 +206,50 @@ export default function BookDetail({ params }: Route.ActionArgs) {
           id="books-delete-form"
           method="delete"
           action="/books/delete"
-          onSubmit={(event) => {
-            if (!confirm("Are you sure?")) {
-              event.preventDefault();
-            }
-          }}
+          // onSubmit={(event) => {
+          //   if (!confirm("Are you sure?")) {
+          //     event.preventDefault();
+          //   }
+          // }}
+          ref={deleteFormRef}
         >
           <input type="hidden" name="id" value={id} />
         </RRForm>
+
+        <ConfirmDialog
+          key="book-delete"
+          destructive
+          open={open === "delete"}
+          onOpenChange={() => {
+            setOpen("delete");
+            setTimeout(() => {
+              // setCurrentRow(null);
+            }, 500);
+          }}
+          handleConfirm={() => {
+            setOpen(null);
+            setTimeout(() => {
+              // if (deleteFormRef.current) {
+              deleteFormRef.current?.requestSubmit();
+              // }
+              // setCurrentRow(null);
+            }, 500);
+            // showSubmittedData(
+            //   currentRow,
+            //   "The following task has been deleted:"
+            // );
+          }}
+          className="max-w-md"
+          title={`Delete this book: ${id}?`}
+          desc={
+            <>
+              You are about to delete a book with the ID <strong>{id}</strong>.
+              <br />
+              This action cannot be undone.
+            </>
+          }
+          confirmText="Delete"
+        />
       </div>
     </Main>
   );
