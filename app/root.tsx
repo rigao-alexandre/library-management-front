@@ -1,6 +1,5 @@
 import {
   isRouteErrorResponse,
-  Links,
   Meta,
   Outlet,
   Scripts,
@@ -13,19 +12,6 @@ import { StrictMode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
-
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
@@ -33,16 +19,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
-        {/* <Links /> */}
       </head>
       <body>
-        {/* <SidebarProvider> */}
-        {/* <AppSidebar /> */}
-        <main>
-          {/* <SidebarTrigger /> */}
-          {children}
-        </main>
-        {/* </SidebarProvider> */}
+        <main>{children}</main>
 
         <Toaster />
         <ScrollRestoration />
@@ -54,62 +33,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Outlet />
-    // <DropdownMenu>
-    //   <DropdownMenuTrigger asChild>
-    //     <Button variant="outline">Open</Button>
-    //   </DropdownMenuTrigger>
-    //   <DropdownMenuContent className="w-56">
-    //     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-    //     <DropdownMenuSeparator />
-    //     <DropdownMenuGroup>
-    //       <DropdownMenuItem>
-    //         Profile
-    //         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-    //       </DropdownMenuItem>
-    //       <DropdownMenuItem>
-    //         Billing
-    //         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-    //       </DropdownMenuItem>
-    //       <DropdownMenuItem>
-    //         Settings
-    //         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-    //       </DropdownMenuItem>
-    //       <DropdownMenuItem>
-    //         Keyboard shortcuts
-    //         <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-    //       </DropdownMenuItem>
-    //     </DropdownMenuGroup>
-    //     <DropdownMenuSeparator />
-    //     <DropdownMenuGroup>
-    //       <DropdownMenuItem>Team</DropdownMenuItem>
-    //       <DropdownMenuSub>
-    //         <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-    //         <DropdownMenuPortal>
-    //           <DropdownMenuSubContent>
-    //             <DropdownMenuItem>Email</DropdownMenuItem>
-    //             <DropdownMenuItem>Message</DropdownMenuItem>
-    //             <DropdownMenuSeparator />
-    //             <DropdownMenuItem>More...</DropdownMenuItem>
-    //           </DropdownMenuSubContent>
-    //         </DropdownMenuPortal>
-    //       </DropdownMenuSub>
-    //       <DropdownMenuItem>
-    //         New Team
-    //         <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-    //       </DropdownMenuItem>
-    //     </DropdownMenuGroup>
-    //     <DropdownMenuSeparator />
-    //     <DropdownMenuItem>GitHub</DropdownMenuItem>
-    //     <DropdownMenuItem>Support</DropdownMenuItem>
-    //     <DropdownMenuItem disabled>API</DropdownMenuItem>
-    //     <DropdownMenuSeparator />
-    //     <DropdownMenuItem>
-    //       Log out
-    //       <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-    //     </DropdownMenuItem>
-    //   </DropdownMenuContent>
-    // </DropdownMenu>
+    <StrictMode>
+      <Outlet />
+    </StrictMode>
   );
 }
 
