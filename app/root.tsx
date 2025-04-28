@@ -9,6 +9,9 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { StrictMode } from "react";
+import { AppSidebar } from "./components/layout/app-sidebar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,7 +45,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <StrictMode>
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <Outlet />
+        </main>
+      </SidebarProvider>
+    </StrictMode>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
