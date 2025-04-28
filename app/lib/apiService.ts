@@ -63,7 +63,7 @@ export class APIBaseService {
     return response;
   }
 
-  async create<T>(model: string, data: T, validator: z.ZodType<T> = z.any()) {
+  async create<T>(data: T, validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}`, {
       method: "POST",
       body: JSON.stringify(data),

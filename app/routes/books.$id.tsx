@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Main } from "@/components/layout/main";
 import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -25,6 +24,7 @@ import useDialogState from "@/hooks/use-dialog-state";
 import { useRef } from "react";
 import { setFlashMessage } from "@/lib/flashMessage";
 import { BookFormSchema } from "@/features/books/model/book";
+import { BaseLayout } from "@/components/layout/base-layout";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -97,7 +97,7 @@ export default function BookDetail() {
   const [open, setOpen] = useDialogState<"delete">(null);
 
   return (
-    <Main>
+    <BaseLayout>
       <div className="mb-2 flex flex-wrap items-center justify-between space-y-2 gap-x-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Books</h2>
@@ -225,6 +225,6 @@ export default function BookDetail() {
           confirmText="Delete"
         />
       </div>
-    </Main>
+    </BaseLayout>
   );
 }

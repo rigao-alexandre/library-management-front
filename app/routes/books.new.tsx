@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
 import { setFlashMessage } from "@/lib/flashMessage";
 import { BookFormSchema } from "@/features/books/model/book";
+import { Header } from "@/components/layout/header";
+import { BaseLayout } from "@/components/layout/base-layout";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -77,7 +79,7 @@ export default function Books() {
   };
 
   return (
-    <Main>
+    <BaseLayout>
       <div className="mb-2 flex flex-wrap items-center justify-between space-y-2 gap-x-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Books</h2>
@@ -153,6 +155,6 @@ export default function Books() {
           </form>
         </Form>
       </div>
-    </Main>
+    </BaseLayout>
   );
 }
