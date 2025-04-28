@@ -16,7 +16,10 @@ export class APIBaseService {
     reqOptions?: RequestInit,
     otherOptions?: OtherOptions
   ) {
-    const url = new URL(route, "http://localhost:3000"); // TODO: check
+    const url = new URL(
+      route,
+      import.meta.env.VITE_API_URL ?? "http://localhost:3000"
+    ); // TODO: check
     const { parseResponseAsJson = true } = otherOptions || {};
 
     const defaultOptions: RequestInit = {

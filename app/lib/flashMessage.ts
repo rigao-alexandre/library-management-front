@@ -2,7 +2,7 @@ import { FlashMessageSchema } from "@/components/layout/flash-message";
 import { createCookieSessionStorage } from "react-router";
 
 // Get the secret for the cookie from environment variables
-let secret = process.env.COOKIE_SECRET || "default";
+let secret = import.meta.env.VITE_COOKIE_SECRET || "default";
 
 if (secret === "default") {
   console.warn("No COOKIE_SECRET set, the app is insecure");
