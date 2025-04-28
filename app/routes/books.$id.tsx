@@ -11,9 +11,7 @@ import { z } from "zod";
 import {
   Form as RRForm,
   redirect,
-  useFormAction,
   useLoaderData,
-  useNavigate,
   useSubmit,
 } from "react-router";
 import { useForm } from "react-hook-form";
@@ -84,10 +82,8 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
   }
 };
 
-export default function BookDetail({ params }: Route.ActionArgs) {
+export default function BookDetail() {
   const { id, defaultValues } = useLoaderData<typeof loader>();
-
-  // const navigate = useNavigate();
 
   const submit = useSubmit();
   const form = useForm<FormSchema>({
@@ -98,12 +94,8 @@ export default function BookDetail({ params }: Route.ActionArgs) {
   const onSubmit = (data: FormSchema) => {
     console.log(data);
     submit(data, { method: "post" });
-    // do something with the form data
     form.reset();
-    // navigate("/books");
   };
-
-  // console.log(useFormAction("delete"));
 
   const deleteFormRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useDialogState<"delete">(null);
@@ -194,6 +186,7 @@ export default function BookDetail({ params }: Route.ActionArgs) {
               // variant="destructive"
               // value="delete"
               // name="_action"
+
               type="button"
               onClick={() => setOpen("delete")}
             >
@@ -206,11 +199,6 @@ export default function BookDetail({ params }: Route.ActionArgs) {
           id="books-delete-form"
           method="delete"
           action="/books/delete"
-          // onSubmit={(event) => {
-          //   if (!confirm("Are you sure?")) {
-          //     event.preventDefault();
-          //   }
-          // }}
           ref={deleteFormRef}
         >
           <input type="hidden" name="id" value={id} />
@@ -222,22 +210,12 @@ export default function BookDetail({ params }: Route.ActionArgs) {
           open={open === "delete"}
           onOpenChange={() => {
             setOpen("delete");
-            setTimeout(() => {
-              // setCurrentRow(null);
-            }, 500);
           }}
           handleConfirm={() => {
             setOpen(null);
             setTimeout(() => {
-              // if (deleteFormRef.current) {
               deleteFormRef.current?.requestSubmit();
-              // }
-              // setCurrentRow(null);
             }, 500);
-            // showSubmittedData(
-            //   currentRow,
-            //   "The following task has been deleted:"
-            // );
           }}
           className="max-w-md"
           title={`Delete this book: ${id}?`}
