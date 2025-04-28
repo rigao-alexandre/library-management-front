@@ -10,31 +10,14 @@ import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
 import { columns } from "@/features/books/components/data-table-columns";
 import { DataTable } from "@/features/books/components/data-table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { getFlashMessage } from "@/lib/flashMessage";
 import { FlashMessage } from "@/components/layout/flash-message";
-import { toast } from "sonner";
 import { Header } from "@/components/layout/header";
-import { MainNav } from "@/components/layout/main-nav";
-import { Separator } from "@/components/ui/separator";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Manage books" },
+    { name: "description", content: "Manage books" },
   ];
 }
 
@@ -54,10 +37,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function Books() {
   const { flashMessage, books } = useLoaderData<typeof loader>();
 
-  if (flashMessage?.message) {
-    toast(flashMessage?.message);
-  }
-
   return (
     <>
       <Header />
@@ -76,14 +55,10 @@ export default function Books() {
             </Link>
           </div>
         </div>
-        {/* <FlashMessage data={flashMessage} /> */}
+        <FlashMessage data={flashMessage} />
         <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12">
-          {/* <DataTable data={tasks} columns={columns} /> */}
           <DataTable columns={columns} data={books} />
         </div>
-        {/* <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={books} />
-      </div> */}
       </Main>
     </>
   );

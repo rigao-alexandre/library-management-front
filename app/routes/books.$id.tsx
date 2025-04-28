@@ -7,7 +7,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type { Route } from "./+types/books.$id";
-import { z } from "zod";
 import {
   Form as RRForm,
   redirect,
@@ -24,14 +23,8 @@ import { BookService } from "@/lib/bookService";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import useDialogState from "@/hooks/use-dialog-state";
 import { useRef } from "react";
-
-const FormSchema = z.object({
-  title: z.string().min(1, "Title is required."),
-  author: z.string().min(1, "Author is required."),
-  isbn: z.string().min(1, "ISBN is required."),
-  description: z.string().min(1, "Description is required."),
-});
-type FormSchema = z.infer<typeof FormSchema>;
+import { setFlashMessage } from "@/lib/flashMessage";
+import { BookFormSchema } from "@/features/books/model/book";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -67,7 +60,7 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
 
   const payload = Object.fromEntries(formData);
 
-  const parsed = FormSchema.safeParse(payload);
+  const parsed = BookFormSchema.safeParse(payload);
 
   if (!parsed.success) {
     return { ok: false, data: undefined, result: parsed.error } as const;
@@ -76,7 +69,11 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
   try {
     await new BookService().update(id, parsed.data);
 
-    return redirect(`/books`);
+    const { headers } = await setFlashMessage(request, {
+      message: "Success",
+    });
+
+    return redirect(`/books`, { headers });
   } catch (error) {
     return { success: false, data: undefined };
   }
@@ -86,13 +83,12 @@ export default function BookDetail() {
   const { id, defaultValues } = useLoaderData<typeof loader>();
 
   const submit = useSubmit();
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<BookFormSchema>({
+    resolver: zodResolver(BookFormSchema),
     defaultValues,
   });
 
-  const onSubmit = (data: FormSchema) => {
-    console.log(data);
+  const onSubmit = (data: BookFormSchema) => {
     submit(data, { method: "post" });
     form.reset();
   };

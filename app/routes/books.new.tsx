@@ -7,7 +7,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import type { Route } from "./+types/books.new";
-import { z } from "zod";
 import { redirect, useLoaderData, useNavigate, useSubmit } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,14 +16,7 @@ import { Main } from "@/components/layout/main";
 import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
 import { setFlashMessage } from "@/lib/flashMessage";
-
-const FormSchema = z.object({
-  title: z.string().min(1, "Title is required."),
-  author: z.string().min(1, "Author is required."),
-  isbn: z.string().min(1, "ISBN is required."),
-  description: z.string().min(1, "Description is required."),
-});
-type FormSchema = z.infer<typeof FormSchema>;
+import { BookFormSchema } from "@/features/books/model/book";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -49,14 +41,13 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
   const payload = Object.fromEntries(formData);
 
-  const parsed = FormSchema.safeParse(payload);
+  const parsed = BookFormSchema.safeParse(payload);
 
   if (!parsed.success) {
     const { headers } = await setFlashMessage(request, {
       message: "Error",
     });
     return redirect(`/books`, { headers });
-    // return { ok: false, data: undefined, result: parsed.error } as const;
   }
 
   try {
@@ -74,19 +65,15 @@ export const action = async ({ request }: Route.ActionArgs) => {
 export default function Books() {
   const { defaultValues } = useLoaderData<typeof loader>();
 
-  // const navigate = useNavigate();
-
   const submit = useSubmit();
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<BookFormSchema>({
+    resolver: zodResolver(BookFormSchema),
     defaultValues,
   });
 
-  const onSubmit = (data: FormSchema) => {
+  const onSubmit = (data: BookFormSchema) => {
     submit(data, { method: "post" });
-    // do something with the form data
     form.reset();
-    // navigate("/books");
   };
 
   return (

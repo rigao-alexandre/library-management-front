@@ -10,16 +10,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router";
+import type { BookSchema } from "../model/book";
 
-export type Book = {
-  id: number;
-  title: string;
-  author: string;
-  isbn: string;
-  description: string;
-};
-
-export const columns: ColumnDef<Book>[] = [
+export const columns: ColumnDef<BookSchema>[] = [
   {
     id: "id",
     header: "#",
