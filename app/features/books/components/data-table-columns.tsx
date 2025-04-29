@@ -17,9 +17,9 @@ export const columns: ColumnDef<BookSchema>[] = [
     id: "id",
     header: "#",
     cell: ({ row }) => {
-      const book = row.original;
+      const data = row.original;
 
-      return <Link to={`/books/${book.id}`}>{book.id}</Link>;
+      return <Link to={`/books/${data.id}`}>{data.id}</Link>;
     },
   },
   {

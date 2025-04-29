@@ -1,7 +1,4 @@
 import { z } from "zod";
-// import { fromError } from "zod-validation-error";
-
-// import { config } from "@/config.server";
 import { fetcher } from "./fetcher";
 
 type OtherOptions = {
@@ -19,7 +16,7 @@ export class APIBaseService {
     const url = new URL(
       route,
       import.meta.env.VITE_API_URL ?? "http://localhost:3000"
-    ); // TODO: check
+    );
     const { parseResponseAsJson = true } = otherOptions || {};
 
     const defaultOptions: RequestInit = {

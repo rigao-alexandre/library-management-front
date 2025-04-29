@@ -64,7 +64,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
   }
 };
 
-export default function Books() {
+export default function BooksNew() {
   const { defaultValues } = useLoaderData<typeof loader>();
 
   const submit = useSubmit();

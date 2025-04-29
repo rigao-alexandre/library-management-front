@@ -8,10 +8,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { BookService } from "@/lib/bookService";
 import { columns } from "@/features/books/components/data-table-columns";
-import { DataTable } from "@/features/books/components/data-table";
 import { getFlashMessage } from "@/lib/flashMessage";
 import { FlashMessage } from "@/components/layout/flash-message";
 import { BaseLayout } from "@/components/layout/base-layout";
+import { DataTable } from "@/components/data-table";
 
 export function meta({}: Route.MetaArgs) {
   return [
