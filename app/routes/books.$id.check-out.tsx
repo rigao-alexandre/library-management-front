@@ -7,9 +7,7 @@ import {
   type LoaderFunctionArgs,
 } from "react-router";
 import { BookService } from "@/lib/bookService";
-import { columns } from "@/features/books/components/data-table-columns";
 import { BaseLayout } from "@/components/layout/base-layout";
-import { DataTable } from "@/components/data-table";
 import { GetSchema } from "@/lib/models";
 import { MemberService } from "@/lib/memberService";
 import { useForm } from "react-hook-form";
@@ -27,7 +25,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -112,7 +109,7 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
 };
 
 export default function BookCheckOut() {
-  const { id, defaultValues, book, members } = useLoaderData<typeof loader>();
+  const { defaultValues, book, members } = useLoaderData<typeof loader>();
 
   const submit = useSubmit();
   const form = useForm<BookCheckoutFormSchema>({
@@ -126,15 +123,7 @@ export default function BookCheckOut() {
   }));
 
   const onSubmit = (data: BookCheckoutFormSchema) => {
-    submit(
-      data,
-      // {
-      //   // ...data,
-      //   // bookId: id,
-      //   // event: "CHECK OUT",
-      // },
-      { method: "post" }
-    );
+    submit(data, { method: "post" });
     form.reset();
   };
 
@@ -250,7 +239,6 @@ export default function BookCheckOut() {
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent position="popper">
-                          {/* <SelectItem value="0">Today</SelectItem> */}
                           <SelectItem value="1">Tomorrow</SelectItem>
                           <SelectItem value="3">In 3 days</SelectItem>
                           <SelectItem value="5">In 5 days</SelectItem>
