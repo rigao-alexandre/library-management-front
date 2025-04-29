@@ -6,6 +6,10 @@ export const ResourceModel = z.object({
   updatedAt: z.string(),
 });
 
-export const DeleteSchema = z.object({
+export const IdSchema = z.object({
   id: z.coerce.number(),
 });
+
+export const DeleteSchema = IdSchema;
+
+export const GetSchema = IdSchema;
