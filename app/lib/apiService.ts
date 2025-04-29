@@ -6,7 +6,7 @@ type OtherOptions = {
 };
 
 export class APIBaseService {
-  constructor(private model: string) {}
+  constructor(protected model: string) {}
 
   protected async makeRequest(
     route: string,
