@@ -5,3 +5,7 @@ export const ResourceModel = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
 });
+
+export const DeleteSchema = z.object({
+  id: z.coerce.number(),
+});

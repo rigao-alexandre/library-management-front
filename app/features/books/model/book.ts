@@ -1,4 +1,4 @@
-import { ResourceModel } from "@/lib/models";
+import { DeleteSchema, ResourceModel } from "@/lib/models";
 import { z } from "zod";
 
 export const BookSchema = ResourceModel.extend({
@@ -17,7 +17,5 @@ export const BookFormSchema = z.object({
 });
 export type BookFormSchema = z.infer<typeof BookFormSchema>;
 
-export const BookDeleteSchema = z.object({
-  id: z.coerce.number(),
-});
+export const BookDeleteSchema = DeleteSchema;
 export type BookDeleteSchema = z.infer<typeof BookDeleteSchema>;

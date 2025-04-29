@@ -1,4 +1,4 @@
-import { ResourceModel } from "@/lib/models";
+import { DeleteSchema, ResourceModel } from "@/lib/models";
 import { z } from "zod";
 
 export const MemberSchema = ResourceModel.extend({
@@ -15,7 +15,5 @@ export const MemberFormSchema = z.object({
 });
 export type MemberFormSchema = z.infer<typeof MemberFormSchema>;
 
-export const MemberDeleteSchema = z.object({
-  id: z.coerce.number(),
-});
+export const MemberDeleteSchema = DeleteSchema;
 export type MemberDeleteSchema = z.infer<typeof MemberDeleteSchema>;
