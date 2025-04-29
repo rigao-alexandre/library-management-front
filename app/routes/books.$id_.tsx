@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import type { Route } from "./+types/books.$id";
+import type { Route } from "./+types/books.$id_";
 import {
   Form as RRForm,
   redirect,
