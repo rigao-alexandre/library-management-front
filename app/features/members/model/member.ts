@@ -1,7 +1,7 @@
+import { ResourceModel } from "@/lib/models";
 import { z } from "zod";
 
-export const MemberSchema = z.object({
-  id: z.string(),
+export const MemberSchema = ResourceModel.extend({
   full_name: z.string(),
   email: z.string().email(),
   phone: z.string(),

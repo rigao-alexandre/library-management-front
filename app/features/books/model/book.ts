@@ -1,7 +1,7 @@
+import { ResourceModel } from "@/lib/models";
 import { z } from "zod";
 
-export const BookSchema = z.object({
-  id: z.string(),
+export const BookSchema = ResourceModel.extend({
   title: z.string(),
   author: z.string(),
   isbn: z.string(),
