@@ -28,7 +28,7 @@ export function meta({}: Route.MetaArgs) {
 export const loader = async () => {
   return {
     defaultValues: {
-      full_name: "",
+      fullName: "",
       email: "",
       phone: "",
     },
@@ -92,7 +92,7 @@ export default function MembersNew() {
           >
             <FormField
               control={form.control}
-              name="full_name"
+              name="fullName"
               render={({ field }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>Name</FormLabel>

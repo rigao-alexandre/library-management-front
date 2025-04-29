@@ -41,7 +41,7 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
   return {
     id,
     defaultValues: member ?? {
-      full_name: "",
+      fullName: "",
       email: "",
       phone: "",
     },
@@ -101,7 +101,7 @@ export default function MemberDetail() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Members</h2>
           <p className="text-muted-foreground">
-            Edit member - {defaultValues.full_name}
+            Edit member - {defaultValues.fullName}
           </p>
         </div>
       </div>
@@ -114,7 +114,7 @@ export default function MemberDetail() {
           >
             <FormField
               control={form.control}
-              name="full_name"
+              name="fullName"
               render={({ field }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>Name</FormLabel>

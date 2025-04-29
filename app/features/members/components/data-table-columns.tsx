@@ -13,7 +13,7 @@ export const columns: ColumnDef<MemberSchema>[] = [
     },
   },
   {
-    accessorKey: "full_name",
+    accessorKey: "fullName",
     header: "Name",
   },
   {
