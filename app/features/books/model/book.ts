@@ -1,12 +1,14 @@
 import { DeleteSchema, IdSchema, ResourceModel } from "@/lib/models";
 import { z } from "zod";
 
+export const BookStatus = z.enum(["CHECKED IN", "CHECKED OUT"]);
+
 export const BookSchema = ResourceModel.extend({
   title: z.string(),
   author: z.string(),
   isbn: z.string(),
   description: z.string(),
-  status: z.enum(["CHECKED IN", "CHECKED OUT"]),
+  status: BookStatus,
   memberId: z.number().nullable().optional(),
   dueDate: z.string().nullable().optional(),
 });
