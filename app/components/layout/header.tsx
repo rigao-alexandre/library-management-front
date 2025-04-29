@@ -26,6 +26,10 @@ export const Header = ({
                 href: "/books",
                 title: "Books",
               },
+              {
+                href: "/members",
+                title: "Members",
+              },
             ]}
           />
         </div>
