@@ -63,7 +63,7 @@ export class APIBaseService {
     return response;
   }
 
-  async create<T>(data: T, validator: z.ZodType<T> = z.any()) {
+  async _create<T>(data: T, validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -78,7 +78,7 @@ export class APIBaseService {
     throw new Error(`Unexpected response shape`);
   }
 
-  async getAll<T>(validator: z.ZodType<T> = z.any()) {
+  async _getAll<T>(validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}`, {
       method: "GET",
     });
@@ -92,7 +92,7 @@ export class APIBaseService {
     throw new Error(`Unexpected response shape`);
   }
 
-  async getByID<T>(id: number, validator: z.ZodType<T> = z.any()) {
+  async _getByID<T>(id: number, validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}/${id}`, {
       method: "GET",
     });
@@ -106,7 +106,7 @@ export class APIBaseService {
     throw new Error(`Unexpected response shape`);
   }
 
-  async update<T>(id: number, data: T, validator: z.ZodType<T> = z.any()) {
+  async _update<T>(id: number, data: T, validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}/${id}`, {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -121,7 +121,7 @@ export class APIBaseService {
     throw new Error(`Unexpected response shape`);
   }
 
-  async delete<T>(id: number, validator: z.ZodType<T> = z.any()) {
+  async _delete<T>(id: number, validator: z.ZodType<T> = z.any()) {
     const responseData = await this.makeRequest(`/${this.model}/${id}`, {
       method: "DELETE",
     });
