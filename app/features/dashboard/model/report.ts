@@ -20,10 +20,10 @@ export const BookByStatus = z.array(
 export type BookByStatus = z.infer<typeof BookByStatus>;
 
 export const BooksByDeadline = z.object({
-  total: z.number(),
-  totalOnTime: z.number(),
-  totalToday: z.number(),
-  totalDelayed: z.number(),
+  total: z.coerce.number(),
+  totalOnTime: z.coerce.number(),
+  totalToday: z.coerce.number(),
+  totalDelayed: z.coerce.number(),
 });
 export type BooksByDeadline = z.infer<typeof BooksByDeadline>;
 

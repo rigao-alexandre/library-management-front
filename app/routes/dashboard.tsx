@@ -6,29 +6,35 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 
 const chartConfig = {
-  ["CHECK IN"]: {
+  checkin: {
     label: "Check in",
     color: "hsl(var(--chart-1))",
   },
-  ["CHECK OUT"]: {
+  checkout: {
     label: "Check out",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
+
+const eventMap = {
+  ["CHECK IN"]: "checkin",
+  ["CHECK OUT"]: "checkout",
+};
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -52,17 +58,23 @@ export default function Home() {
     string,
     {
       date: string;
-      ["CHECK IN"]?: number | null | undefined;
-      ["CHECK OUT"]?: number | null | undefined;
+      checkin?: number | null | undefined;
+      checkout?: number | null | undefined;
     }
   >();
 
   for (const item of dashboard.history) {
     groupedByDate.set(item.date, {
       ...(groupedByDate.get(item.date) ?? { date: item.date }),
-      [item.event]: item.total,
+      [eventMap[item.event]]: item.total ?? 0,
     });
   }
+
+  const chartData = Array.from(groupedByDate.values()).map((item) => ({
+    ...item,
+    checkin: item.checkin ?? 0,
+    checkout: item.checkout ?? 0,
+  }));
 
   return (
     <BaseLayout>
@@ -163,94 +175,7 @@ export default function Home() {
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3 my-2"></div>
           </CardContent>
         </Card>
-        {/* <Card className="flex justify-center align-center items-center">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total book</CardTitle>
-          </CardHeader>
-          <CardContent className="">
-            <div className="text-9xl font-bold">
-              {dashboard.books.totalByDeadline.total}
-            </div>
-          </CardContent>
-        </Card> */}
       </div>
-      {/* <div className="grid gap-4 grid-cols-1 my-2">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Checked out</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {dashboard.books.totalByStatus.find(
-                    (item) => item.status === "CHECKED OUT"
-                  )?.total ?? 0}
-                </div>
-              </CardContent>
-            </Card>
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3 my-2">
-              <Card className="border border-red-400 text-red-700 ">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Delayed</CardTitle>
-                </CardHeader>
-                <CardContent className="">
-                  <div className="text-2xl font-bold">
-                    {dashboard.books.totalByDeadline.totalDelayed}
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border border-orange-400 text-orange-700">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Today</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {dashboard.books.totalByDeadline.totalToday}
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border border-green-400 text-green-700">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">On time</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {dashboard.books.totalByDeadline.totalOnTime}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="grid gap-4 grid-cols-3 my-2">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Checked in</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {dashboard.books.totalByStatus.find(
-              (item) => item.status === "CHECKED IN"
-            )?.total ?? 0}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total books</CardTitle>
-          </CardHeader>
-          <CardContent>{dashboard.books.totalByDeadline.total}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total members</CardTitle>
-          </CardHeader>
-          <CardContent>{dashboard.members.total}</CardContent>
-        </Card>
-      </div> */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-8 my-2">
         <Card className="col-span-1 lg:col-span-4">
           <CardHeader>
@@ -308,9 +233,9 @@ export default function Home() {
           </CardHeader>
           <CardContent className="pl-2">
             <ChartContainer config={chartConfig}>
-              <AreaChart
+              {/* <AreaChart
                 accessibilityLayer
-                data={Array.from(groupedByDate.values())}
+                data={chartData}
                 margin={{
                   left: 12,
                   right: 12,
@@ -322,29 +247,65 @@ export default function Home() {
                   tickLine={false}
                   axisLine={false}
                   tickMargin={8}
-                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickCount={3}
+                  type="number"
+                  domain={[0, 25]}
                 />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent indicator="dot" />}
                 />
                 <Area
-                  dataKey="CHECK IN"
-                  type="natural"
-                  fill="hsl(var(--chart-1))"
+                  dataKey="checkin"
+                  type="linear"
+                  fill="var(--color-checkin)"
                   fillOpacity={0.4}
-                  stroke="hsl(var(--chart-1))"
+                  stroke="var(--color-checkin)"
                   stackId="a"
                 />
                 <Area
-                  dataKey="CHECK OUT"
-                  type="natural"
-                  fill="hsl(var(--chart-2))"
+                  dataKey="checkout"
+                  type="linear"
+                  fill="var(--color-checkout)"
                   fillOpacity={0.4}
-                  stroke="hsl(var(--chart-2))"
+                  stroke="var(--color-checkout)"
                   stackId="a"
                 />
-              </AreaChart>
+              </AreaChart> */}
+
+              <BarChart accessibilityLayer data={chartData}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickCount={3}
+                  type="number"
+                  domain={[0, 10]}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="dashed" />}
+                />
+                <Bar dataKey="checkin" fill="var(--color-checkin)" radius={4} />
+                <Bar
+                  dataKey="checkout"
+                  fill="var(--color-checkout)"
+                  radius={4}
+                />
+                <ChartLegend content={<ChartLegendContent />} />
+              </BarChart>
             </ChartContainer>
           </CardContent>
         </Card>
