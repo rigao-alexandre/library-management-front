@@ -55,6 +55,24 @@ yarn dev
 
 _Open `http://localhost:5173`_
 
+- Dashboard - books
+![image](https://github.com/user-attachments/assets/54b0a32b-a39f-4b6b-a234-8391af100e63)
+
+- Dashboard - rankings
+![image](https://github.com/user-attachments/assets/9dcef00b-ad2b-441d-8e50-1123234a96c3)
+
+- Dashboard - chart
+![image](https://github.com/user-attachments/assets/d4d1d8ff-5fb9-4f4c-a9e8-75d4afdce9e4)
+
+- Books - list
+![image](https://github.com/user-attachments/assets/0f8cbc74-2915-4700-92fe-925447f08e8b)
+
+- Books - history
+![image](https://github.com/user-attachments/assets/ab40b1f6-30c0-41ba-9d1d-282fddd5ca48)
+
+- Members - list
+![image](https://github.com/user-attachments/assets/a168e451-8f13-4c70-a344-ca44f2a9daf5)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Roadmap
