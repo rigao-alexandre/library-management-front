@@ -14,6 +14,8 @@ Front for Library Management
 - TailwindCSS
 - shadcn/ui
 - Recharts
+- Zod
+- date-fns
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,13 +97,6 @@ _Open `http://localhost:5173`_
 
 - [ ] Migrate to data management lib (TanStack Query or SWR, for example)
 - [ ] Improve dashboard so each component has it's own lifecycle (with loading state and error handling)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Acknowledgments
-
-- Zod
-- date-fns
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
