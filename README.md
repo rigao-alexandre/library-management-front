@@ -64,6 +64,10 @@ _Open `http://localhost:5173`_
 - [ ] Filters
 - [ ] Pagination
 
+### UI
+
+- [ ] Icons
+
 ### Security
 
 - [ ] Better error handling (mainly backends)
