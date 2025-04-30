@@ -1,87 +1,87 @@
-# Welcome to React Router!
+<a id="readme-top"></a>
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## About The Project
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Front for Library Management
 
-## Features
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+### Built With
+
+- React Router v7
+- Vite
+- TypeScript
+- TailwindCSS
+- shadcn/ui
+- Recharts
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Features
+
+- Books management
+- Members management
+- Book check in and check out
+- History
+- Dashboard
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+- yarn
+
 ### Installation
 
-Install the dependencies:
+1. Clone the repo
+2. Install packages
+   ```sh
+   yarn install
+   ```
 
-```bash
-npm install
+### Running
+
+```sh
+yarn dev
 ```
 
-### Development
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Start the development server with HMR:
+## Usage
 
-```bash
-npm run dev
-```
+_Open `http://localhost:5173`_
 
-Your application will be available at `http://localhost:5173`.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Building for Production
+## Roadmap
 
-Create a production build:
+### Features
 
-```bash
-npm run build
-```
+- [ ] Filters
+- [ ] Pagination
 
-## Deployment
+### Security
 
-### Docker Deployment
+- [ ] Better error handling (mainly backends)
+- [ ] Better feedbacks
 
-To build and run using Docker:
+### Architecture
 
-```bash
-docker build -t my-app .
+- [ ] Migrate to data management lib (TanStack Query or SWR, for example)
+- [ ] Improve dashboard so each component has it's own lifecycle (with loading state and error handling)
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## Acknowledgments
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+- Zod
+- date-fns
 
-### DIY Deployment
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
