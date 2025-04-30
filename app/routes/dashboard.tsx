@@ -17,6 +17,7 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Button } from "@/components/ui/button";
 
 const chartConfig = {
   ["CHECK IN"]: {
@@ -63,73 +64,239 @@ export default function Home() {
     });
   }
 
-  console.log(Array.from(groupedByDate.values()));
-
   return (
     <BaseLayout>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 my-2">
+      <div className="grid gap-4 grid-cols-1 my-2">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              To be checked in today
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Books</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {dashboard.books.totalByDeadline.totalToday}
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total</CardTitle>
+                <CardDescription>
+                  <Button variant="link" asChild>
+                    <a
+                      href={`${import.meta.env.VITE_API_URL}/report/books`}
+                      target="_new"
+                    >
+                      Download books list
+                    </a>
+                  </Button>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {dashboard.books.totalByDeadline.total}
+                </div>
+              </CardContent>
+            </Card>
+            <div className="grid gap-4 grid-cols-2 my-2">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Checked in
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {dashboard.books.totalByStatus.find(
+                      (item) => item.status === "CHECKED IN"
+                    )?.total ?? 0}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Checked out
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {dashboard.books.totalByStatus.find(
+                      (item) => item.status === "CHECKED OUT"
+                    )?.total ?? 0}
+                  </div>
+                </CardContent>
+                <div className="grid gap-4 grid-cols-3 my-2">
+                  <Card className="border border-red-400 text-red-700 ">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        Delayed
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="">
+                      <div className="text-2xl font-bold">
+                        {dashboard.books.totalByDeadline.totalDelayed}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border border-orange-400 text-orange-700">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        Today
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">
+                        {dashboard.books.totalByDeadline.totalToday}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border border-green-400 text-green-700">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        On time
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">
+                        {dashboard.books.totalByDeadline.totalOnTime}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </Card>
             </div>
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3 my-2"></div>
           </CardContent>
         </Card>
-        <Card>
+        {/* <Card className="flex justify-center align-center items-center">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Delayed</CardTitle>
+            <CardTitle className="text-sm font-medium">Total book</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {dashboard.books.totalByDeadline.totalDelayed}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">On time</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {dashboard.books.totalByDeadline.totalOnTime}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
+          <CardContent className="">
+            <div className="text-9xl font-bold">
               {dashboard.books.totalByDeadline.total}
+            </div>
+          </CardContent>
+        </Card> */}
+      </div>
+      {/* <div className="grid gap-4 grid-cols-1 my-2">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Checked out</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {dashboard.books.totalByStatus.find(
+                    (item) => item.status === "CHECKED OUT"
+                  )?.total ?? 0}
+                </div>
+              </CardContent>
+            </Card>
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3 my-2">
+              <Card className="border border-red-400 text-red-700 ">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Delayed</CardTitle>
+                </CardHeader>
+                <CardContent className="">
+                  <div className="text-2xl font-bold">
+                    {dashboard.books.totalByDeadline.totalDelayed}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border border-orange-400 text-orange-700">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Today</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {dashboard.books.totalByDeadline.totalToday}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border border-green-400 text-green-700">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">On time</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {dashboard.books.totalByDeadline.totalOnTime}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-3 my-2">
-        {dashboard.books.totalByStatus.map((item) => (
-          <Card key={item.status}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {item.status}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{item.total}</div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="grid gap-4 grid-cols-3 my-2">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Checked in</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {dashboard.books.totalByStatus.find(
+              (item) => item.status === "CHECKED IN"
+            )?.total ?? 0}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total books</CardTitle>
+          </CardHeader>
+          <CardContent>{dashboard.books.totalByDeadline.total}</CardContent>
+        </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total members</CardTitle>
           </CardHeader>
+          <CardContent>{dashboard.members.total}</CardContent>
+        </Card>
+      </div> */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-8 my-2">
+        <Card className="col-span-1 lg:col-span-4">
+          <CardHeader>
+            <CardTitle>Top books</CardTitle>
+            <CardDescription>Last 30 days</CardDescription>
+          </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{dashboard.members.total}</div>
+            <div className="space-y-8">
+              {dashboard.books.rankings.monthly.map((item) => (
+                <div key={item.book.id} className="flex items-center gap-4">
+                  <div className="flex flex-1 flex-wrap items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm leading-none font-medium">
+                        {item.book.title}
+                      </p>
+                      <p className="text-muted-foreground text-sm">
+                        {item.book.author}
+                      </p>
+                    </div>
+                    <div className="font-medium">{item.total}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="col-span-1 lg:col-span-4">
+          <CardHeader>
+            <CardTitle>Top members</CardTitle>
+            <CardDescription>Last 7 days</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {dashboard.members.rankings.weekly.map((item) => (
+                <div key={item.member.id} className="flex items-center gap-4">
+                  <div className="flex flex-1 flex-wrap items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm leading-none font-medium">
+                        {item.member.fullName}
+                      </p>
+                    </div>
+                    <div className="font-medium">{item.total}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -179,55 +346,6 @@ export default function Home() {
                 />
               </AreaChart>
             </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-8 my-2">
-        <Card className="col-span-1 lg:col-span-4">
-          <CardHeader>
-            <CardTitle>Top books</CardTitle>
-            <CardDescription>Last 30 days</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-8">
-              {dashboard.books.rankings.monthly.map((item) => (
-                <div key={item.book.id} className="flex items-center gap-4">
-                  <div className="flex flex-1 flex-wrap items-center justify-between">
-                    <div className="space-y-1">
-                      <p className="text-sm leading-none font-medium">
-                        {item.book.title}
-                      </p>
-                      <p className="text-muted-foreground text-sm">
-                        {item.book.author}
-                      </p>
-                    </div>
-                    <div className="font-medium">{item.total}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="col-span-1 lg:col-span-4">
-          <CardHeader>
-            <CardTitle>Top members</CardTitle>
-            <CardDescription>Last 7 days</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-8">
-              {dashboard.members.rankings.weekly.map((item) => (
-                <div key={item.member.id} className="flex items-center gap-4">
-                  <div className="flex flex-1 flex-wrap items-center justify-between">
-                    <div className="space-y-1">
-                      <p className="text-sm leading-none font-medium">
-                        {item.member.fullName}
-                      </p>
-                    </div>
-                    <div className="font-medium">{item.total}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </CardContent>
         </Card>
       </div>
